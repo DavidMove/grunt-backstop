@@ -64,7 +64,7 @@ module.exports = function(grunt) {
       };
 
       this.run_tests = function(backstop_path, test_path, cb) {
-        child_process.exec('gulp test', {cwd: backstop_path}, function(err, stdout, stderr) {
+        child_process.exec('npm run test', {cwd: backstop_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
           child_process.exec('cp -rf ./bitmaps_test ' + test_path, {cwd: backstop_path}, function(err, stdout, stderr) {
             this.log(err, stdout, stderr);
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
       };
 
       this.create_references = function(backstop_path, test_path, cb) {
-        child_process.exec('gulp reference', {cwd: backstop_path}, function(err, stdout, stderr) {
+        child_process.exec('npm run reference', {cwd: backstop_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
           child_process.exec('cp -rf ./bitmaps_reference ' + test_path, {cwd: backstop_path}, function(err, stdout, stderr) {
             this.log(err, stdout, stderr);
@@ -112,7 +112,7 @@ module.exports = function(grunt) {
       function(cb) {
         if (this.options.run_tests) {
           this.run_tests(this.backstop_path, this.test_path, function() {
-            cb(); 
+            cb();
           });
         } else cb();
       }.bind(backstop_shim)
