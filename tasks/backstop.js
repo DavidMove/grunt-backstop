@@ -74,7 +74,7 @@ module.exports = function(grunt) {
         child_process.exec('npm run test' + configPathCommand, {cwd: backstop_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
           cb(true);
-        }.bind(this));
+        }.bind(this)).stdout.pipe(process.stdout);
       };
 
       this.create_references = function(backstop_path, test_path, cb) {
@@ -86,7 +86,7 @@ module.exports = function(grunt) {
         child_process.exec('npm run reference' + configPathCommand, {cwd: backstop_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
           cb(true);
-        }.bind(this));
+        }.bind(this)).stdout.pipe(process.stdout);
       };
 
     }
