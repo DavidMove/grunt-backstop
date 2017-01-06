@@ -50,7 +50,7 @@ module.exports = function(grunt) {
       };
 
       this.setup = function(backstop_path, test_path, cb) {
-        child_process.exec('cp -r ./bitmaps_test ./bitmaps_reference ' + backstop_path, {cwd: test_path}, function(err, stdout, stderr) {
+        child_process.exec('cp -r ./backstop_data/bitmaps_test ./backstop_data/bitmaps_reference ' + backstop_path, {cwd: test_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
           cb();
         }.bind(this));
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
       this.run_tests = function(backstop_path, test_path, cb) {
         child_process.exec('backstop test', {cwd: backstop_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
-          child_process.exec('cp -rf ./bitmaps_test ' + test_path, {cwd: backstop_path}, function(err, stdout, stderr) {
+          child_process.exec('cp -rf ./backstop_data/bitmaps_test ' + test_path, {cwd: backstop_path}, function(err, stdout, stderr) {
             this.log(err, stdout, stderr);
             cb(true);
           }.bind(this));
@@ -76,7 +76,7 @@ module.exports = function(grunt) {
       this.create_references = function(backstop_path, test_path, cb) {
         child_process.exec('backstop reference', {cwd: backstop_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
-          child_process.exec('cp -rf ./bitmaps_reference ' + test_path, {cwd: backstop_path}, function(err, stdout, stderr) {
+          child_process.exec('cp -rf ./backstop_data/bitmaps_reference ' + test_path, {cwd: backstop_path}, function(err, stdout, stderr) {
             this.log(err, stdout, stderr);
             cb(true);
           }.bind(this));
