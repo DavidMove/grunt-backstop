@@ -23,6 +23,7 @@ module.exports = function(grunt) {
     var options = this.options({
       backstop_path: './bower_components/backstopjs',
       test_path: './tests',
+      config_path: '',
       setup: false,
       configure: false,
       create_references: false,
@@ -37,7 +38,8 @@ module.exports = function(grunt) {
         setup: data.setup,
         configure: data.configure,
         create_references: data.create_references,
-        run_tests: data.run_tests
+        run_tests: data.run_tests,
+        config_path: data.config_path
       };
       this.done = done;
 
@@ -64,14 +66,24 @@ module.exports = function(grunt) {
       };
 
       this.run_tests = function(backstop_path, test_path, cb) {
-        child_process.exec('npm run test', {cwd: backstop_path}, function(err, stdout, stderr) {
+        var configPathCommand = '';
+        if (this.options.config_path !== '') {
+          configPathCommand = ' -- --configPath=' + cwd + '/' + this.options.config_path;
+        }
+
+        child_process.exec('npm run test' + configPathCommand, {cwd: backstop_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
           cb(true);
         }.bind(this));
       };
 
       this.create_references = function(backstop_path, test_path, cb) {
-        child_process.exec('npm run reference', {cwd: backstop_path}, function(err, stdout, stderr) {
+        var configPathCommand = '';
+        if (this.options.config_path !== '') {
+          configPathCommand = ' -- --configPath=' + cwd + '/' + this.options.config_path;
+        }
+
+        child_process.exec('npm run reference' + configPathCommand, {cwd: backstop_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
           cb(true);
         }.bind(this));
