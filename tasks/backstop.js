@@ -50,7 +50,7 @@ module.exports = function(grunt) {
       };
 
       this.setup = function(backstop_path, test_path, cb) {
-        child_process.exec('cp -r ./backstop_data/bitmaps_test ./backstop_data/bitmaps_reference ' + backstop_path, {cwd: test_path}, function(err, stdout, stderr) {
+        child_process.exec('cp -r ./bitmaps_test ./bitmaps_reference ' + backstop_path, {cwd: test_path}, function(err, stdout, stderr) {
           this.log(err, stdout, stderr);
           cb();
         }.bind(this));
